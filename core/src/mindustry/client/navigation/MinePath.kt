@@ -35,7 +35,7 @@ class MinePath @JvmOverloads constructor(
         }
 
         if (items.isEmpty) {
-            items = player.unit().canMine(it)
+            items = items.min({ indexer.hasOre(it) && player.unit().canMine(it) }) { core.items[it].toFloat() } ?: return
             if (split.none { Strings.parseInt(it) > 0 }) player.sendMessage("client.path.miner.allinvalid".bundle())
         }
         else if (cap >= 0) {
